@@ -20,4 +20,4 @@ This project visualizes the Fibonacci sequence as points on a map, starting at C
 3. Run the `fibonacci_points.py` script to generate the points in a feature class.
 
 ```bash
-git clone https://github.com/your-username/fibonacci-map.git
+git clone https://github.com/FridrichPeter/fibonacci_map.git
