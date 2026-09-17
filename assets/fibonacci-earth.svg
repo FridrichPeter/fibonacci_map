@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Fibonacci Earth Lab</title>
+  <desc id="desc">Abstract dark world map with a glowing Fibonacci path.</desc>
+  <defs>
+    <radialGradient id="bg" cx="65%" cy="45%" r="80%">
+      <stop offset="0" stop-color="#12372f"/>
+      <stop offset="0.6" stop-color="#07110f"/>
+      <stop offset="1" stop-color="#030907"/>
+    </radialGradient>
+    <linearGradient id="path" x1="0" x2="1">
+      <stop stop-color="#b9ff66"/>
+      <stop offset="1" stop-color="#47d7e8"/>
+    </linearGradient>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M60 0H0V60" fill="none" stroke="#cffff0" stroke-opacity=".045"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <g fill="#709487" opacity=".18">
+    <path d="M455 161l55-38 86 4 34 44 64 15 24 61-34 48-67-5-52 42-62-14-22-49-53-26z"/>
+    <path d="M624 333l75 4 52 56-11 96-43 63-36-18-18-82-39-53z"/>
+    <path d="M747 155l70-24 108 29 67 65-32 39-91-6-48 48-79-32-34-53z"/>
+    <path d="M914 374l55-22 66 32-7 55-51 28-58-31z"/>
+    <path d="M305 176l72-27 46 24-10 57-63 34-61-31z"/>
+  </g>
+  <g opacity=".25" stroke="#5df2bb" stroke-width="1" stroke-dasharray="5 9">
+    <path d="M551 335L614 269M551 335L691 371M551 335L771 221M551 335L875 398M551 335L939 174"/>
+  </g>
+  <path d="M551 335L614 269 691 371 771 221 875 398 939 174 1025 472" fill="none" stroke="url(#path)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity=".85" filter="url(#glow)"/>
+  <g fill="#b9ff66" stroke="#07110f" stroke-width="3" filter="url(#glow)">
+    <circle cx="551" cy="335" r="8"/><circle cx="614" cy="269" r="9"/><circle cx="691" cy="371" r="10"/><circle cx="771" cy="221" r="12"/><circle cx="875" cy="398" r="14"/><circle cx="939" cy="174" r="17"/><circle cx="1025" cy="472" r="20" fill="#47d7e8"/>
+  </g>
+  <g font-family="Inter,system-ui,sans-serif">
+    <text x="68" y="92" fill="#5df2bb" font-size="18" font-weight="700" letter-spacing="3">JUST A GEOSPATIAL EXPERIMENT</text>
+    <text x="68" y="170" fill="#f2fff8" font-size="62" font-weight="800" letter-spacing="-3">Fibonacci</text>
+    <text x="68" y="230" fill="#f2fff8" font-size="62" font-weight="800" letter-spacing="-3">Earth Lab</text>
+    <text x="68" y="286" fill="#a6bdb2" font-size="23">What if a number sequence became a journey?</text>
+    <rect x="68" y="340" width="310" height="72" rx="18" fill="#b9ff66" fill-opacity=".08" stroke="#b9ff66" stroke-opacity=".28"/>
+    <text x="103" y="386" fill="#f2fff8" font-family="Georgia,serif" font-size="27">Fₙ = Fₙ₋₁ + Fₙ₋₂</text>
+    <text x="68" y="560" fill="#789287" font-size="17">Interactive MapLibre experiment · Python / ArcPy origin</text>
+  </g>
+</svg>

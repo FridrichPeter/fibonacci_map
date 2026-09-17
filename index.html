@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive geospatial experiment that turns the Fibonacci sequence into a journey across Earth."
+    />
+    <meta name="theme-color" content="#07110f" />
+    <meta property="og:title" content="Fibonacci Earth Lab" />
+    <meta property="og:description" content="What happens when a number sequence becomes geography?" />
+    <meta property="og:image" content="assets/fibonacci-earth.png" />
+    <title>Fibonacci Earth Lab</title>
+    <link rel="preconnect" href="https://unpkg.com" />
+    <link
+      href="https://unpkg.com/maplibre-gl@6.9.1/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="map-stage" aria-label="Interactive Fibonacci map">
+        <div id="map"></div>
+        <div class="map-vignette" aria-hidden="true"></div>
+
+        <header class="topbar glass">
+          <a class="brand" href="https://github.com/FridrichPeter/fibonacci_map" target="_blank" rel="noreferrer">
+            <span class="brand-mark" aria-hidden="true">φ</span>
+            <span>Fibonacci Earth Lab</span>
+          </a>
+          <div class="top-actions">
+            <button id="showControls" class="icon-button" type="button" title="Return to map controls">Controls</button>
+            <button id="toggleAnalysis" class="icon-button" type="button" aria-controls="analysisPanel" aria-expanded="true" title="Explore places and coordinates">
+              <span aria-hidden="true">⌖</span><span>Places</span>
+            </button>
+            <button id="cleanView" class="icon-button" type="button" title="Toggle clean view (H)">
+              <span aria-hidden="true">◫</span><span class="button-label">Clean view</span>
+            </button>
+            <button id="shareView" class="icon-button" type="button" title="Copy a link to this view">
+              <span aria-hidden="true">↗</span><span class="button-label">Share</span>
+            </button>
+          </div>
+        </header>
+
+        <aside class="story-panel glass">
+          <p class="eyebrow">Just a geospatial experiment</p>
+          <h1>What if a number sequence became a journey?</h1>
+          <p class="lede">
+            Starting on the equator, every Fibonacci number becomes a point on Earth.
+            Switch between the golden angle and a 45° rotation to see how one rule reshapes the spatial pattern.
+          </p>
+
+          <div class="formula" aria-label="Fibonacci formula">
+            <span>F<sub>n</sub></span>
+            <span class="formula-equals">=</span>
+            <span>F<sub>n−1</sub> + F<sub>n−2</sub></span>
+          </div>
+
+          <div class="control-group">
+            <div class="control-heading">
+              <label>Origin point</label>
+              <output id="originCoordinates">0.0021° S, 78.4558° W</output>
+            </div>
+            <div class="origin-actions">
+              <button id="selectOrigin" class="secondary-button" type="button">
+                Choose on map
+              </button>
+              <button id="resetOrigin" class="secondary-button" type="button">
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="control-heading">
+              <label>Rotation rule</label>
+              <output id="angleValue">137.5°</output>
+            </div>
+            <div class="segmented" role="group" aria-label="Rotation rule">
+              <button type="button" data-angle="137.507764" class="active">Golden angle</button>
+              <button type="button" data-angle="45">Original 45°</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="control-heading">
+              <label for="pointCount">Sequence length</label>
+              <output id="pointCountValue">18 points</output>
+            </div>
+            <input id="pointCount" type="range" min="8" max="22" value="18" step="1" />
+          </div>
+
+          <div class="control-group">
+            <div class="control-heading">
+              <label for="reach">Maximum reach</label>
+              <output id="reachValue">4,000 km</output>
+            </div>
+            <input id="reach" type="range" min="500" max="8000" value="4000" step="250" />
+          </div>
+
+          <div class="primary-actions">
+            <button id="play" class="primary-button" type="button">
+              <span class="play-icon" aria-hidden="true">▶</span>
+              <span class="play-label">Play sequence</span>
+            </button>
+            <button id="download" class="secondary-button" type="button">GeoJSON ↓</button>
+          </div>
+
+          <p class="hint">Tip: press <kbd>H</kbd> for a clean screen recording.</p>
+        </aside>
+
+        <section class="sequence-panel glass" aria-label="Current Fibonacci sequence">
+          <div class="sequence-title">
+            <span>Sequence</span>
+            <span id="sequenceProgress">18 / 18</span>
+          </div>
+          <div id="sequence" class="sequence-list"></div>
+        </section>
+
+        <section class="stats-panel glass" aria-label="Map statistics">
+          <div><span class="stat-label">Origin</span><strong id="originName">Mitad del Mundo</strong></div>
+          <div><span class="stat-label">Largest term</span><strong id="largestTerm">2,584</strong></div>
+          <div><span class="stat-label">Spatial rule</span><strong id="spatialRule">Golden angle</strong></div>
+        </section>
+
+        <section id="analysisPanel" class="analysis-panel glass" aria-labelledby="analysisTitle">
+          <div class="analysis-heading">
+            <div>
+              <p class="eyebrow">Where the numbers land</p>
+              <h2 id="analysisTitle">Explore places</h2>
+            </div>
+            <button id="closeAnalysis" class="icon-button" type="button" aria-label="Close places panel">×</button>
+          </div>
+          <p class="analysis-intro">Country at each point, plus the nearest mapped city. Select a term to explore it on the map.</p>
+          <div id="analysisSummary" class="analysis-summary" role="status">Loading geography…</div>
+          <button id="retryAnalysis" class="secondary-button" type="button" hidden>Retry geography</button>
+          <div id="analysisList" class="analysis-list" aria-label="Places and coordinates for every term"></div>
+          <p class="analysis-note">Point locations, not crossings along connecting lines. Approximate boundaries and selected cities from <a href="https://www.naturalearthdata.com/downloads/50m-cultural-vectors/" target="_blank" rel="noreferrer">Natural Earth · 1:50m</a>. Small islands and coastal details may be missing. Coordinates: WGS84, decimal degrees.</p>
+        </section>
+
+        <div id="toast" class="toast" role="status" aria-live="polite"></div>
+        <div id="loading" class="loading-screen">
+          <span class="loader"></span>
+          <span>Building the sequence…</span>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
