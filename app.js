@@ -181,7 +181,8 @@ async function loadGeography() {
   const timeout = window.setTimeout(() => controller.abort(), 15000);
   try {
     const [countries, places] = await Promise.all([
-      "./assets/countries-50m.geojson", "./assets/places-50m.json",
+      "./assets/countries-50m.geojson", 
+      "./assets/places-10m.json",
     ].map(async (url) => {
       const response = await fetch(url, { signal: controller.signal });
       if (!response.ok) throw new Error(`Geography HTTP ${response.status}`);
