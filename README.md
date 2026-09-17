@@ -41,11 +41,6 @@ GeoJSON exports include `lat`, `lon`, `analysisStatus`, `country`, `countryCode`
 
 Run the geographic checks with `node --test tests/geo-analysis.test.mjs`.
 
-## Publish with GitHub Pages
-
-In the repository, open **Settings → Pages**, choose **Deploy from a branch**, select `main` and `/ (root)`, then save. The site will be available at:
-
-`https://fridrichpeter.github.io/fibonacci_map/`
 
 ## How the geography is generated
 
