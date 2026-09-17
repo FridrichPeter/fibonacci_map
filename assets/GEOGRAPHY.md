@@ -3,7 +3,7 @@
 Public-domain data from [Natural Earth](https://www.naturalearthdata.com/about/terms-of-use/), retrieved on 2026-09-16.
 
 - `countries-50m.geojson`: 242 country/territory features from [Admin 0 countries, 1:50m](https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_admin_0_countries.geojson). Original geometry retained; properties reduced to `ADMIN` (name) and `ADM0_A3` (code).
-- `places-50m.json`: 1,251 selected populated places from [Populated places simple, 1:50m](https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_populated_places_simple.geojson). Retains name, country name and original point coordinates.
+- `places-10m.json`: 7,342 populated places derived from [Populated places simple, 1:10m](https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_populated_places_simple.geojson). Retains the place name, country name and original point coordinates.
 
 Run `python scripts/prepare-geography.py` to refresh these assets from the upstream repository. This is an optional maintainer operation; normal use makes no geocoding API calls.
 
